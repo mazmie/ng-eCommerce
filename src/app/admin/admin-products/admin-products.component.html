@@ -2,6 +2,16 @@
     <button class="btn btn-primary" routerLink='/admin/products/create'>Create Product</button>
 </p>
 
+<p>
+    <input 
+        #query
+        (keyup)="filter(query.value)"
+        type="text" 
+        placeholder="Search..."
+        class="form-control"
+        />
+</p>
+
 <table class="table">
     <thead>
         <th>Title</th>
@@ -9,10 +19,10 @@
         <th></th>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products$ | async">
-            <td>{{ product.payload.val().title }}</td>
-            <td>{{ product.payload.val().price }}</td>
-            <td><a [routerLink]="['/admin/products/', product.key]">Edit</a></td>
+        <tr *ngFor="let product of productList">
+            <td>{{ product.title }}</td>
+            <td>{{ product.price }}</td>
+            <td><a [routerLink]="['/admin/products/', product.id]">Edit</a></td>
         </tr>
     </tbody>
 </table>  
