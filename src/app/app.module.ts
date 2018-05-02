@@ -1,3 +1,4 @@
+import { CategoryService } from './category.service';
 import { AdminAuthGuard } from './admin-auth-guard.service';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
@@ -22,7 +23,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { UserService } from './user.service';
-
+import { FormsModule } from '@angular/forms';
+import { ProductService } from './product.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { UserService } from './user.service';
     AdminOrdersComponent,
     LoginComponent,
     NotFoundComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -56,11 +61,21 @@ import { UserService } from './user.service';
       {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]},
 
       {path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'admin/products/create', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+
       {path: '**', component: NotFoundComponent},
-    ])
+    ]),
+    FormsModule,
+    CustomFormsModule
   ],
-  providers: [ AuthService, AuthGuard, UserService, AdminAuthGuard ],
+  providers: [ AuthService,
+    AuthGuard,
+    UserService,
+    AdminAuthGuard,
+    ProductService,
+    CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

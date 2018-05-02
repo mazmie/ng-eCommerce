@@ -1,3 +1,18 @@
 <p>
-  admin-products works!
+    <button class="btn btn-primary" routerLink='/admin/products/create'>Create Product</button>
 </p>
+
+<table class="table">
+    <thead>
+        <th>Title</th>
+        <th>Price</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products$ | async">
+            <td>{{ product.payload.val().title }}</td>
+            <td>{{ product.payload.val().price }}</td>
+            <td><a [routerLink]="['/admin/products/', product.key]">Edit</a></td>
+        </tr>
+    </tbody>
+</table>  
