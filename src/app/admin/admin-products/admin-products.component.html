@@ -12,17 +12,30 @@
         />
 </p>
 
-<table class="table">
-    <thead>
-        <th>Title</th>
-        <th>Price</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of productList">
-            <td>{{ product.title }}</td>
-            <td>{{ product.price }}</td>
-            <td><a [routerLink]="['/admin/products/', product.id]">Edit</a></td>
-        </tr>
-    </tbody>
-</table>  
+<data-table id="products-grid"
+    headerTitle="Products"
+    [items]="productList"
+    [itemCount]="itemCount"
+
+    (reload)="reloadItems($event)">
+    <data-table-column
+        [property]="'title'"
+        [header]="'Title'"
+        [sortable]="true"
+        [resizable]="true">
+    </data-table-column>
+    <data-table-column
+        [property]="'price'"
+        [header]="'Price'"
+        [sortable]="true"
+        [resizable]="true">
+        <ng-template #dataTableCell let-item="item">
+            <span>{{item.price | currency:'USD':'symbol' }}</span>
+        </ng-template>
+    </data-table-column>
+    <data-table-column>
+        <ng-template #dataTableCell let-item="item">
+            <span><a [routerLink]="['/admin/products/', item.id]">Edit</a></span>
+        </ng-template>
+    </data-table-column>
+</data-table>
