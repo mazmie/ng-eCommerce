@@ -43,13 +43,7 @@
       <button *ngIf="productId" (click)="remove()" type="button" class="btn btn-danger">Delete</button>
     </form>
   </div>
-  <div class="col-6">
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" [src]="imageUrl.value || 'http://shashgrewal.com/wp-content/uploads/2015/05/default-placeholder-300x300.png'" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{ title.value || 'Title' }}</h5>
-        <p class="card-text">{{ price.value || 0 | currency:'USD':'symbol' }}</p>
-      </div>
-    </div>
+  <div class="col-4">
+      <product-card [product]='product' [showActions]='false'></product-card>
   </div>
 </div>

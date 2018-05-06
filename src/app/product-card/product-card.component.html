@@ -1,0 +1,12 @@
+<div class="card">
+  <img class="card-img-top" 
+    [src]="product.imageUrl || 'http://shashgrewal.com/wp-content/uploads/2015/05/default-placeholder-300x300.png'" 
+    alt="{{product.title}}">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title || 'Title' }}</h5>
+    <p class="card-text">{{ product.price || 0 | currency:'USD':'symbol' }}</p>
+  </div>
+  <div *ngIf="showActions" class="card-footer">
+      <a href="#" class="btn btn-primary btn-block">Go somewhere</a>
+  </div>
+</div>
