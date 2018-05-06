@@ -2,10 +2,10 @@
   <div class="col-3">
     <div class="list-group">
       <a *ngFor="let cate of categories" 
-        (click)="filter(cate.id)"
         [routerLink]="['/products']"
         [queryParams]="{category: cate.id}"
         routerLinkActive="active"
+        [class.active]="cate.id === 'all' && !selectedCategory"
         class="list-group-item list-group-item-action">
         {{ cate.name }}
       </a>

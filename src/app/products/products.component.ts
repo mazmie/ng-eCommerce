@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   categories: Category[] = [];
   products: Product[] = [];
   productList: Product[] = [];
+  selectedCategory: String;
 
   constructor(productService: ProductService,
     categoryService: CategoryService,
@@ -23,9 +24,9 @@ export class ProductsComponent implements OnInit {
         this.products = this.productList = items;
         return route.queryParamMap;
       }).subscribe(params => {
-        const category = params.get('category');
-        if (category) {
-          this.filter(category);
+        this.selectedCategory = params.get('category');
+        if (this.selectedCategory) {
+          this.filter();
         }
       });
 
@@ -35,11 +36,11 @@ export class ProductsComponent implements OnInit {
       });
   }
 
-  filter(category: string) {
-    if (category === 'all') {
+  filter() {
+    if (this.selectedCategory === 'all') {
       this.productList = this.products;
     } else {
-      this.productList = this.products.filter(x => x.category === category);
+      this.productList = this.products.filter(x => x.category === this.selectedCategory);
     }
   }
 
