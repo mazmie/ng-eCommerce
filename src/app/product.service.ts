@@ -1,3 +1,4 @@
+import { Category } from './models/category';
 import { Injectable } from '@angular/core';
 import { Product } from './models/product';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -20,7 +21,33 @@ export class ProductService {
   }
 
   listAll() {
-    return this.db.list('/products').snapshotChanges();
+    return this.db.list('/products').snapshotChanges()
+    .map(items => items.map(x => {
+      const payloadValue = x.payload.val();
+      const product: Product = {
+        id: x.key,
+        title: payloadValue.title,
+        imageUrl: payloadValue.imageUrl,
+        price: payloadValue.price,
+        category: payloadValue.category
+      };
+      return product;
+    }));
+  }
+
+  list() {
+    return this.db.list('/products').snapshotChanges()
+    .map(items => items.map(x => {
+      const payloadValue = x.payload.val();
+      const product: Product = {
+        id: x.key,
+        title: payloadValue.title,
+        imageUrl: payloadValue.imageUrl,
+        price: payloadValue.price,
+        category: payloadValue.category
+      };
+      return product;
+    }));
   }
 
   get(id: String) {

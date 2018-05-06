@@ -25,7 +25,7 @@
         <label for="title">Category</label>
         <select #category="ngModel" class="form-control" [(ngModel)]="product.category"  name="category" required>
           <option selected>Please select from the list...</option>
-          <option *ngFor="let cate of categories$ | async" [value]="cate.key">{{cate.payload.val().name}}</option>
+          <option *ngFor="let cate of categories$ | async" [value]="cate.id">{{cate.name}}</option>
         </select>
         <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
           Category is required.

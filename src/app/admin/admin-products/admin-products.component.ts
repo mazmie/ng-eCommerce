@@ -22,17 +22,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.dataTable = new DataTableResource<Product>(this.productList);
     this.dataTable.count().then(count => this.itemCount = count);
     this.subscribtion = productService.listAll().subscribe(items => {
-        this.productList = this.products = items.map(item => {
-          const itemVal = item.payload.val();
-          const product: Product = {
-            id: item.key,
-            title: itemVal.title,
-            price: itemVal.price,
-            category: itemVal.category,
-            imageUrl: itemVal.imageUrl
-          };
-          return product;
-        });
+        this.productList = this.products = items;
         this.dataTable = new DataTableResource<Product>(this.productList);
         this.reloadItems({offset: 0});
       }

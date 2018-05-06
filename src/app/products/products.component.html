@@ -1,3 +1,26 @@
-<p>
-  products works!
-</p>
+<div class="row">
+  <div class="col-3">
+    <div class="list-group">
+      <a *ngFor="let cate of categories" 
+        (click)="filter(cate.id)"
+        [routerLink]="['/products']"
+        [queryParams]="{category: cate.id}"
+        routerLinkActive="active"
+        class="list-group-item list-group-item-action">
+        {{ cate.name }}
+      </a>
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="row">
+      <div *ngFor="let product of productList" class="card margin5" style="width: 18rem;">
+        <img class="card-img-top" src="{{product.imageUrl}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{product.title}}</h5>
+          <p class="card-text">{{ product.price | currency:'USD' }}</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
