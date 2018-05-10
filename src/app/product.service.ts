@@ -10,9 +10,10 @@ import { ProductMapper } from './mappers/product-mapper';
 @Injectable()
 export class ProductService extends BaseService<Product> {
 
-  constructor(db: AngularFireDatabase) {
+  constructor(db: AngularFireDatabase, 
+    mapper: ProductMapper) {
     super('products',
-      new ProductMapper(),
+      mapper,
       db);
    }
 

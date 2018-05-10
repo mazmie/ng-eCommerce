@@ -7,9 +7,10 @@ import { CategoryMapper } from './mappers/category-mapper';
 @Injectable()
 export class CategoryService extends BaseService<Category> {
 
-  constructor(db: AngularFireDatabase) {
+  constructor(db: AngularFireDatabase,
+    mapper: CategoryMapper) {
     super('categories',
-      new CategoryMapper(),
+      mapper,
       db);
    }
    

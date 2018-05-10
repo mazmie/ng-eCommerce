@@ -1,3 +1,5 @@
+import { ProductMapper } from './mappers/product-mapper';
+import { CategoryMapper } from './mappers/category-mapper';
 import { CategoryService } from './category.service';
 import { AdminAuthGuard } from './admin-auth-guard.service';
 import { AuthGuard } from './auth-guard.service';
@@ -79,7 +81,9 @@ import { ProductCardComponent } from './product-card/product-card.component';
     UserService,
     AdminAuthGuard,
     ProductService,
-    CategoryService],
+    CategoryService, 
+    ProductMapper,
+    CategoryMapper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
