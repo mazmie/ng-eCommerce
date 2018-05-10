@@ -1,6 +1,7 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { PathReference, AngularFireDatabase } from 'angularfire2/database';
-import { IMapper } from './mappers/i-mapper';
+import { IMapper } from './mappers/imapper';
 
 @Injectable()
 export class BaseService<T> {
@@ -9,12 +10,12 @@ export class BaseService<T> {
 
   constructor(nodeName: String,
     private mapper: IMapper<T>, 
-    private db: AngularFireDatabase) {
+    protected db: AngularFireDatabase) {
     this.nodePath = '/' + nodeName;
    }
 
   save(target: T) {
-    this.db.list(this.nodePath).push(target);
+    return this.db.list(this.nodePath).push(target);
   }
 
   update(id: String, target: T) {
@@ -25,15 +26,16 @@ export class BaseService<T> {
     return this.db.object(this.nodePath + '/' + id).remove();
   }
 
-  listAll() {
+  listAll(): Observable<T[]>  {
     return this.db.list(this.nodePath).snapshotChanges()
     .map(items => items.map(x => {
       return this.mapper.toModel(x);
     }));
   }
 
-  get(id: String) {
-    return this.db.object(this.nodePath + '/' + id).valueChanges();
+  get(id: String): Observable<T> {
+    return this.db.object(this.nodePath + '/' + id).snapshotChanges()
+      .map(item => this.mapper.toModel(item));
   }
 
 }
