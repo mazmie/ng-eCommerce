@@ -31,6 +31,10 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { CustomFormsModule } from 'ng2-validation';
 import { DataTableModule } from 'angular5-data-table';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ShoppingCartService } from './shopping-cart.service';
+import { ShoppingCartMapper } from './mappers/shopping-cart-mapper';
+import { CartItemMapper } from './mappers/cart-item-mapper';
+import { CartItemActionsComponent } from './cart-item-actions/cart-item-actions.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     NotFoundComponent,
     ShoppingCartComponent,
     ProductFormComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    CartItemActionsComponent
   ],
   imports: [
     BrowserModule,
@@ -82,8 +87,13 @@ import { ProductCardComponent } from './product-card/product-card.component';
     AdminAuthGuard,
     ProductService,
     CategoryService, 
+    ShoppingCartService,
+  
     ProductMapper,
-    CategoryMapper],
+    ShoppingCartMapper, 
+    CategoryMapper, 
+    ShoppingCartMapper, 
+    CartItemMapper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

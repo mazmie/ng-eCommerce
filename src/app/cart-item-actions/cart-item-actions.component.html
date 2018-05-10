@@ -1,0 +1,18 @@
+<div *ngIf="quantity != 0; then items else noItems"></div>
+<ng-template #items>
+  <div class="row no-gutters">
+    <div class="col-2">
+      <button type="button" class="btn btn-primary btn-block" (click)="addItem()">+</button>
+    </div>
+    <div class="col text-center">
+      {{ quantity }} in cart
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-primary btn-block" (click)="removeItem()">-</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noItems>
+  <button type="button" class="btn btn-primary btn-block" (click)="addItem()">Add to Cart</button>
+</ng-template>

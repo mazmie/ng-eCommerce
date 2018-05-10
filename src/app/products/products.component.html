@@ -16,6 +16,7 @@
       <ng-container *ngFor="let product of productList">
          <div class="col-4">
             <product-card 
+            [cart]="cart"
             [product]="product"
             [showActions]="true">
           </product-card>

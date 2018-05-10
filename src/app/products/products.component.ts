@@ -1,9 +1,11 @@
+import { ShoppingCartService } from './../shopping-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from './../category.service';
 import { ProductService } from './../product.service';
 import { Category } from './../models/category';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
   selector: 'app-products',
@@ -16,10 +18,12 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   productList: Product[] = [];
   selectedCategory: String;
-
+  cart: ShoppingCart;
+  
   constructor(productService: ProductService,
     categoryService: CategoryService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private shoppingCartService: ShoppingCartService) {
       productService.listAll().switchMap(items => {
         this.products = this.productList = items;
         return route.queryParamMap;
@@ -44,7 +48,8 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    (await this.shoppingCartService.getCart()).subscribe(cart => this.cart = cart);
   }
 
 }
