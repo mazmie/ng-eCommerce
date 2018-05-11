@@ -13,7 +13,7 @@ import { ShoppingCart } from '../models/shopping-cart';
 export class NavbarComponent implements OnInit {
 
   appUser: AppUser;
-  itemsCount = 0;
+  cart: ShoppingCart = new ShoppingCart(null, [], new Date());
 
   constructor(private auth: AuthService,
     private shoppingCartService: ShoppingCartService) {
@@ -22,13 +22,7 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     (await this.shoppingCartService.getCart())
-      .subscribe(cart => {
-        this.itemsCount = 0;
-        if (!cart.items) { return 0; }
-        for (const productId of Object.keys(cart.items)) {
-          this.itemsCount += cart.items[productId].quantity;
-        }
-      });
+      .subscribe(cart => this.cart = cart);
   }
 
   logout() {
