@@ -10,7 +10,7 @@ import { ShoppingCartService } from '../shopping-cart.service';
 export class CartItemActionsComponent implements OnInit {
 
   @Input('product') product: Product;
-  @Input('quantity') quantity = 0;
+  @Input('quantity') quantity;
   
   constructor(private shoppingCartService: ShoppingCartService) {
   }
@@ -24,6 +24,5 @@ export class CartItemActionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.quantity = 0;
   }
 }

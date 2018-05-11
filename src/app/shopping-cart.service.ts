@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, PathReference } from 'angularfire2/database';
 import { ShoppingCart } from './models/shopping-cart';
 import { ShoppingCartMapper } from './mappers/shopping-cart-mapper';
-import { LocalStorageHelper } from './helpers/local-storage-helper';
 import { CartItem } from './models/cart-item';
 
 @Injectable()
@@ -52,6 +51,13 @@ export class ShoppingCartService {
         return this.db
             .object('/shopping-carts/' + cartId + '/items/' + item.product.id)
             .update(item);
+    }
+
+    async removeItems() {
+        const cartId = await this.getOrCreateCartId();
+        return this.db
+            .object('/shopping-carts/' + cartId + '/items')
+            .remove();
     }
 
     private async removeItem(productId: string) {
