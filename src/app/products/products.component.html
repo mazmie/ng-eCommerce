@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-3">
-    <div class="list-group">
+    <div class="list-group sticky-top">
       <a *ngFor="let cate of categories" 
         [routerLink]="['/products']"
         [queryParams]="{category: cate.id}"
@@ -14,7 +14,7 @@
   <div class="col-9">
     <div class="row">
       <ng-container *ngFor="let product of productList">
-         <div class="col-4">
+         <div class="col-6">
             <product-card 
             [cart]="cart"
             [product]="product"
