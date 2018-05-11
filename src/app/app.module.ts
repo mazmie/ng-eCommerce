@@ -62,7 +62,7 @@ import { CartItemActionsComponent } from './cart-item-actions/cart-item-actions.
     DataTableModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      {path: '', component: HomeComponent},
+      {path: '', component: ProductsComponent},
       {path: 'login', component: LoginComponent},
       {path: 'products', component: ProductsComponent},
 
