@@ -65,8 +65,8 @@ import { CartItemActionsComponent } from './cart-item-actions/cart-item-actions.
       {path: '', component: ProductsComponent},
       {path: 'login', component: LoginComponent},
       {path: 'products', component: ProductsComponent},
-
-      {path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
+      {path: 'shopping-cart', component: ShoppingCartComponent },
+      
       {path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard]},
       {path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard]},
       {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]},
