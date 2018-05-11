@@ -69,7 +69,8 @@ export class ShoppingCartService {
 
     public async addToCart(product: Product) {
         (await this.getItem(product.id)).subscribe(item => {
-            this.updateItem({ product: product, quantity: item ? item.quantity + 1 : 1 });
+            this.updateItem(new CartItem(product,
+                item ? item.quantity + 1 : 1 ));
         });
     }
 
