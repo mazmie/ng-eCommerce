@@ -22,6 +22,11 @@ export class ShoppingCart {
         return count;
     }
 
+    getItemQuantity(productId: string) {
+        const item = this.items.filter(x => x.product.id === productId)[0];
+        return item ? item.quantity : 0;
+    }
+
     get totalPrice() {
         let price = 0;
         for (const item of this.items) {

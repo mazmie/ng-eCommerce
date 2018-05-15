@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ShoppingCartService } from './../shopping-cart.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,32 +21,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
   productList: Product[] = [];
   selectedCategory: String;
   cart: ShoppingCart;
-
+  
   cartSubscription: Subscription;
   productsSubscription: Subscription;
   categorySubscription: Subscription;
 
-  constructor(productService: ProductService,
-    categoryService: CategoryService,
+  constructor(private productService: ProductService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private shoppingCartService: ShoppingCartService) {
-    this.productsSubscription = productService.listAll().switchMap(items => {
-      this.products = this.productList = items;
-      return route.queryParamMap;
-    }).subscribe(params => {
-      this.selectedCategory = params.get('category');
-      if (this.selectedCategory) {
-        this.filter();
-      }
-    });
-
-    this.categorySubscription = categoryService.listAll().subscribe(items => {
-      this.categories.push({ id: 'all', name: 'All Categories' });
-      this.categories = this.categories.concat(items);
-    });
   }
 
   filter() {
+    if (!this.selectedCategory) { return; }
     if (this.selectedCategory === 'all') {
       this.productList = this.products;
     } else {
@@ -55,6 +43,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.cartSubscription = (await this.shoppingCartService.getCart()).subscribe(cart => this.cart = cart);
+
+    this.productsSubscription = this.productService.listAll().switchMap(items => {
+      this.products = this.productList = items;
+      return this.route.queryParamMap;
+    }).subscribe(params => {
+      this.selectedCategory = params.get('category');
+      this.filter();      
+    });
+
+    this.categorySubscription = this.categoryService.listAll().subscribe(items => {
+      this.categories.push({ id: 'all', name: 'All Categories' });
+      this.categories = this.categories.concat(items);
+    });
   }
 
   ngOnDestroy(): void {

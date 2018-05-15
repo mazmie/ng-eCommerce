@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../models/product';
 import { ShoppingCart } from '../models/shopping-cart';
 
@@ -11,15 +12,8 @@ export class ProductCardComponent {
 
   @Input('showActions') showActions: Boolean = false;
   @Input('product') product: Product;
-  @Input('cart') cart: ShoppingCart;
+  @Input('shopping-cart') cart: ShoppingCart;
 
-  constructor() {
-  }
-
-  getQuantity() {
-    if (!this.cart || !this.cart.items) { return 0; }
-    const item = this.cart.items[this.product.id];
-    return item ? item.quantity : 0;
-  }
+  constructor() {  }
 
 }
