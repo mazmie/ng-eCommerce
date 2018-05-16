@@ -1,3 +1,53 @@
-<p>
-  check-out works!
-</p>
+<div class="row">
+  <div class="col-6">
+    <form #form="ngForm">
+      <h1>Shipping Info</h1>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input #name="ngModel" [(ngModel)]="shippingInfo.name" name="name" type="text" class="form-control" required>
+        <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+          Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Address</label>
+        <input #line1="ngModel" [(ngModel)]="shippingInfo.line1" name="line1" type="text" class="form-control" placeholder="Line 1" required>
+        <br/>
+        <input #line2="ngModel" [(ngModel)]="shippingInfo.line2" name="line2" type="text" class="form-control" placeholder="Line 2" required>
+        <div class="alert alert-danger" *ngIf="line1.touched && line1.invalid">
+          <div *ngIf="line1.errors.required">Line 1 is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="name">City</label>
+          <input #city="ngModel" [(ngModel)]="shippingInfo.city" name="city" type="text" class="form-control" required>
+          <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+            City is required.
+          </div>
+        </div>
+      <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+          <h1>Order Summary</h1>
+          <p>You have {{ cart?.itemsCount || 0 }} items in your shopping cart.</p>
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngFor="let item of cart?.items || []">
+                <td> {{ item.quantity }} x {{ item.product.title }}</td>
+                <td> {{ item.product.price * item.quantity | currency:'USD':'symbol' }} </td>
+              </tr>
+              <tr>
+                <td class="text-right"><strong>Total</strong></td>
+                <td>
+                  {{ cart?.totalPrice || 0 | currency:'USD':'symbol' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
