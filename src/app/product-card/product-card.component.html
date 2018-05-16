@@ -7,5 +7,5 @@
     <p class="card-text">{{ product.price || 0 | currency:'USD':'symbol' }}</p>
   </div>
   <div *ngIf="showActions" class="card-footer">
-    <cart-item-actions [quantity]="cart.getItemQuantity(product.id)" [product]="product"></cart-item-actions>
+    <cart-item-actions [quantity]="cart?.getItemQuantity(this.product.id) || 0" [product]="product"></cart-item-actions>
 </div>

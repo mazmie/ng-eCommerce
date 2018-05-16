@@ -14,7 +14,7 @@ import { ShoppingCart } from '../models/shopping-cart';
 export class NavbarComponent implements OnInit, OnDestroy {
   
   appUser: AppUser;
-  cart: ShoppingCart = new ShoppingCart(null, [], new Date());
+  cart: ShoppingCart;
 
   cartSubscription: Subscription;
 
@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.cartSubscription = (await this.shoppingCartService.getCart())
       .subscribe(cart => this.cart = cart);
   }
-
+  
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
   }

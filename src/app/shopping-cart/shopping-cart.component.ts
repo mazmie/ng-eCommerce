@@ -13,7 +13,7 @@ import { ShoppingCart } from '../models/shopping-cart';
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
 
-  cart: ShoppingCart = new ShoppingCart(null, [], new Date());
+  cart: ShoppingCart;
   cartSubscription: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) {
